@@ -15,34 +15,26 @@ class RepoPaging(
 ) : PagingSource<Int, Repository>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Repository> {
-        try {
-            val currentLoadingPageKey = params.key ?: 1
-            val response = remote.fetchRepositories(key, currentLoadingPageKey)
-            val repositoriesList = mutableListOf<Repository>()
 
-            val data = response?.repositories ?: emptyList()
+        val currentLoadingPageKey = params.key ?: 1
+        val response = remote.fetchRepositories(key, currentLoadingPageKey)
+        val repositoriesList = mutableListOf<Repository>()
 
-            if (data.isNullOrEmpty()) {
-                repositoriesList.addAll(cache.getRepositories())
-            } else {
-                repositoriesList.addAll(data.map {
-                    Repository.mapFromRemoteToLocal(it)
-                })
-                if (currentLoadingPageKey == 1)
-                    cache.saveRepositories(repositoriesList)
-            }
+        val data = response?.repositories ?: emptyList()
 
-            val prevKey = if (currentLoadingPageKey == 1) null else currentLoadingPageKey - 1
-            return LoadResult.Page(
-                data = repositoriesList,
-                prevKey = prevKey,
-                nextKey = currentLoadingPageKey.plus(1)
-            )
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return LoadResult.Error(e)
+        repositoriesList.addAll(data.map {
+            Repository.mapFromRemoteToLocal(it)
+        })
+        if (currentLoadingPageKey == 1){
+            cache.saveRepositories(repositoriesList)
         }
+        val prevKey = if (currentLoadingPageKey == 1) null else currentLoadingPageKey - 1
+        return LoadResult.Page(
+            data = repositoriesList,
+            prevKey = prevKey,
+            nextKey = currentLoadingPageKey.plus(1)
+        )
+        
     }
 
     override fun getRefreshKey(state: PagingState<Int, Repository>): Int? {

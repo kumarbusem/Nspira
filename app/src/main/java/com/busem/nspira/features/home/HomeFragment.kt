@@ -1,5 +1,8 @@
 package com.busem.nspira.features.home
 
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -8,6 +11,7 @@ import com.busem.data.models.Repository
 import com.busem.nspira.R
 import com.busem.nspira.common.BaseAbstractFragment
 import com.busem.nspira.common.ViewModelFactory
+import com.busem.nspira.common.toast
 import com.busem.nspira.databinding.FragmentHomeBinding
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.catch
@@ -41,44 +45,49 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
 //            rvRepositories.apply { adapter = repositoriesAdapter }
 //        }
 
-//        fun setupSearch() {
-//            etSearchRepo.requestFocus()
-//            etSearchRepo.setOnEditorActionListener { _, actionId, _ ->
-//
-//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//
-//                    val searchText = etSearchRepo.text.toString().trim()
-//                        .takeIf { it.isNotBlank() } ?: run {
-//                        toast(getString(R.string.please_search_a_repository))
-//                        return@setOnEditorActionListener false
-//                    }
-//
-//                    viewModel.searchResults(searchText)
-//
-//                    val imm: InputMethodManager =
-//                        requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//                    imm.hideSoftInputFromWindow(etSearchRepo.windowToken, 0)
-//
-//                    return@setOnEditorActionListener true
-//                }
-//
-//                false
-//            }
-//        }
+        fun setupSearch() {
+            etSearchRepo.requestFocus()
+            etSearchRepo.setOnEditorActionListener { _, actionId, _ ->
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    val searchText = etSearchRepo.text.toString().trim()
+                        .takeIf { it.isNotBlank() } ?: run {
+                        toast(getString(R.string.please_search_a_repository))
+                        return@setOnEditorActionListener false
+                    }
+
+                    viewModel.searchResults(searchText)
+
+                    val imm: InputMethodManager =
+                        requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(etSearchRepo.windowToken, 0)
+
+                    return@setOnEditorActionListener true
+                }
+
+                false
+            }
+        }
 
 //        setupRepoList()
-//        setupSearch()
+        setupSearch()
 
     }
 
     @InternalCoroutinesApi
     private fun setupView() {
-        lifecycleScope.launch {
-            viewModel.listData.collect {
+//        lifecycleScope.launch {
+//            viewModel.listData.collect {it ->
+//                repositoriesAdapter.submitData(it)
+//            }
+//        }
+//
+        viewModel.obsPaging.observe(viewLifecycleOwner,{
+            lifecycleScope.launch {
                 repositoriesAdapter.submitData(it)
-
             }
-        }
+        })
     }
 
     private fun setupList() {
