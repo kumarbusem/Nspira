@@ -7,7 +7,7 @@ class RemoteGitDataSourceImpl : RemoteGitDataSource, SafeApiRequest() {
 
     private val service = ServiceProvider.getInstance().create(GithubService::class.java)
 
-    override suspend fun fetchRepositories(searchKey: String): RepositoriesResponseBody? {
+    override suspend fun fetchRepositories(searchKey: String, page: Int): RepositoriesResponseBody? {
         return apiRequest { service.fetchRepositories(searchKey, 1, 10) }
     }
 

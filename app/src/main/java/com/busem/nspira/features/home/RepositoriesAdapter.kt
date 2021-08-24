@@ -2,6 +2,7 @@ package com.busem.nspira.features.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.busem.nspira.databinding.ItemRepositoryBinding
 
 class RepositoriesAdapter(
     private val onClick: (data: Repository) -> Unit
-) : ListAdapter<Repository, RepositoriesAdapter.RepoViewHolder>(DIFF) {
+) : PagingDataAdapter<Repository, RepositoriesAdapter.RepoViewHolder>(DIFF) {
 
     override fun onCreateViewHolder(viewHolder: ViewGroup, viewType: Int): RepoViewHolder {
         return RepoViewHolder(

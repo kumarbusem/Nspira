@@ -11,6 +11,7 @@ import com.busem.data.repositories.*
 import com.busem.nspira.common.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class RepoDetailsViewModel(
@@ -31,16 +32,13 @@ class RepoDetailsViewModel(
         if(!repoPrefs.getRepo()?.contributorsUrl.isNullOrEmpty()){
 
             ioScope.launch {
-                doWhileLoading {
-                    when (val dataState = githubRepo.fetchContributors(repoPrefs.getRepo()?.contributorsUrl!!)) {
-
-                        is DataState.Success -> _contributors.postValue(dataState.data)
-
-                        is DataState.Error -> {
-                            handleExceptions(dataState.dataException)
-                            dataState.logDetails()
-                        }
-                    }
+                withContext(ioScope.coroutineContext) {
+                    githubRepo.fetchContributors(repoPrefs.getRepo()?.contributorsUrl!!)
+                }?.let { repos ->
+                    _contributors.postValue(repos)
+                    return@let
+                } ?: run {
+                    return@run
                 }
             }
 

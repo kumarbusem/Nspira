@@ -1,6 +1,5 @@
 package com.busem.data.repositories
 
-import com.busem.data.common.DataState
 import com.busem.data.local.dataSources.LocalGitDataSource
 import com.busem.data.local.dataSources.LocalGitDataSourceImpl
 import com.busem.data.models.Contributor
@@ -16,26 +15,23 @@ class RepoGithub(
 
 ) : DataSourceGithub {
 
-    override suspend fun fetchRepositories(searchKey: String):
-            DataState<List<Repository>?> = DataState.asDataState {
+    override suspend fun fetchRepositories(searchKey: String): List<Repository> {
 
-        val repositoriesResponseBody = remote.fetchRepositories(searchKey)
+        val repositoriesResponseBody = remote.fetchRepositories(searchKey, 1)
 
         if (repositoriesResponseBody != null) {
             cache.saveRepositories(repositoriesResponseBody.repositories.map {
-                mapFromRemoteToLocal(
-                    it
-                )
+                mapFromRemoteToLocal(it)
             })
         }
 
-        cache.getRepositories()
+        return cache.getRepositories()
     }
 
 
     override suspend fun fetchContributors(url: String):
-            DataState<List<Contributor>?> = DataState.asDataState {
-        remote.fetchContributors(url)
+            List<Contributor>? {
+        return remote.fetchContributors(url)
     }
 
 

@@ -7,9 +7,9 @@ import com.busem.data.models.Repository
 interface DataSourceGithub {
 
 
-    suspend fun fetchRepositories(searchKey: String): DataState<List<Repository>?>
+    suspend fun fetchRepositories(searchKey: String): List<Repository>?
 
-    suspend fun fetchContributors(url: String): DataState<List<Contributor>?>
+    suspend fun fetchContributors(url: String): List<Contributor>?
 
     fun getRepositories(): List<Repository>
 

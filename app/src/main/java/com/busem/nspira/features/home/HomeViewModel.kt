@@ -1,14 +1,17 @@
 package com.busem.nspira.features.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.busem.data.common.DataState
+import androidx.paging.*
 import com.busem.data.models.Repository
 import com.busem.data.repositories.DataSourceGithub
+import com.busem.data.repositories.RepoPaging
 import com.busem.data.repositories.RepoGithub
 import com.busem.nspira.common.BaseViewModel
 import com.busem.nspira.common.SingleLiveEvent
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val githubRepo: DataSourceGithub = RepoGithub()
@@ -19,29 +22,34 @@ class HomeViewModel(
     private val _repos by lazy { MutableLiveData<List<Repository>>() }
     val repos: LiveData<List<Repository>> by lazy { _repos }
 
-    init {
-        searchResults("Android")
-    }
+
+    val listData = Pager(PagingConfig(pageSize = 10)) {
+        RepoPaging("kkk")
+    }.flow.cachedIn(ioScope)
+
+
+
+
+//    init {
+////        searchResults("Android")
+//    }
 
     fun searchResults(searchTerm: String) {
         _searchTerm.postValue(searchTerm)
 
         ioScope.launch {
-            doWhileLoading {
-                when (val dataState = githubRepo.fetchRepositories(searchTerm)) {
-
-                    is DataState.Success -> _repos.postValue(dataState.data)
-
-                    is DataState.Error -> {
-
-                        handleExceptions(dataState.dataException)
-                        dataState.logDetails()
-                        githubRepo.getRepositories()
-
-                    }
-                }
+            withContext(ioScope.coroutineContext) {
+                githubRepo.fetchRepositories(searchTerm)
+            }?.let { repos ->
+                Log.e("REPOS::", repos.toString())
+                _repos.postValue(repos)
+                return@let
+            } ?: run {
+                _repos.postValue(githubRepo.getRepositories())
+                return@run
             }
         }
+
     }
 
     fun saveSelectedRepo(repo: Repository) {

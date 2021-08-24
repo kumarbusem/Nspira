@@ -8,7 +8,7 @@ class RepoUser : DataSourceUserRepo {
 
     private val dataSource: UserDataSource by lazy { UserDataSourceImpl() }
 
-    override suspend fun saveUser(username: kotlin.String, password: kotlin.String) {
+    override suspend fun saveUser(username: String, password: String) {
         dataSource.saveUser(username, password)
     }
 
