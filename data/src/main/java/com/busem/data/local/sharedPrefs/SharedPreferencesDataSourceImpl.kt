@@ -2,9 +2,9 @@ package com.busem.data.local.sharedPrefs
 
 import com.busem.data.models.Repository
 
-class SharedPreferencesDataSourceImpl : SharedPreferencesDataSource {
-
-    private val mSpHelper: SharedPreferencesHelper by lazy { SharedPreferencesHelper.getInstance() }
+class SharedPreferencesDataSourceImpl(
+    private val mSpHelper: SharedPreferencesHelper = SharedPreferencesHelper.getInstance()
+) : SharedPreferencesDataSource {
 
 
     override fun saveUrl(url: String) = mSpHelper.putObject(SP_URL, url)

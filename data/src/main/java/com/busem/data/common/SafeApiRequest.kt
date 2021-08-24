@@ -21,7 +21,6 @@ abstract class SafeApiRequest {
         }
 
         checkErrors(response.code(), response.message())
-        return null
     }
 
     fun <T : Any> apiImageRequest(call: Call<T>): T? {
@@ -40,11 +39,10 @@ abstract class SafeApiRequest {
         }
 
         checkErrors(response.code(), response.message())
-        return null
     }
 
 
-    private fun checkErrors(code: Int, message: String) {
+    private fun checkErrors(code: Int, message: String): Nothing {
         when (code) {
             400 -> throw ClientException("Bad Request")
             401 -> throw UnauthorizedException("Login Expired")

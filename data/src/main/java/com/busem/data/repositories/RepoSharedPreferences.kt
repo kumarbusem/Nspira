@@ -4,9 +4,9 @@ import com.busem.data.local.sharedPrefs.SharedPreferencesDataSource
 import com.busem.data.local.sharedPrefs.SharedPreferencesDataSourceImpl
 import com.busem.data.models.Repository
 
-class RepoSharedPreferences: SharedPreferencesDataSource {
-
-    private val mSpDS: SharedPreferencesDataSource by lazy { SharedPreferencesDataSourceImpl() }
+class RepoSharedPreferences(
+    private val mSpDS: SharedPreferencesDataSource = SharedPreferencesDataSourceImpl()
+): SharedPreferencesDataSource {
 
 
     override fun saveUrl(url: String) = mSpDS.saveUrl(url)

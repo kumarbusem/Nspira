@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-internal class SharedPreferencesHelper private constructor(context: Context) {
+class SharedPreferencesHelper private constructor(context: Context) {
 
     val mGson: Gson by lazy { Gson() }
 

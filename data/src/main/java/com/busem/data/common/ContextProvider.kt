@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.net.Uri
 import com.busem.data.local.roomDatabase.RoomProvider
 import com.busem.data.local.sharedPrefs.SharedPreferencesHelper
-import com.busem.data.remote.ServiceProvider
+import com.busem.data.remote.NetworkClient
 
 
 internal class ContextProvider : ContentProvider() {
@@ -17,7 +17,7 @@ internal class ContextProvider : ContentProvider() {
 
             SharedPreferencesHelper.initialize(context)
             RoomProvider.initialize(context)
-            ServiceProvider.initialize()
+            NetworkClient.initialize()
 
             return true
         }

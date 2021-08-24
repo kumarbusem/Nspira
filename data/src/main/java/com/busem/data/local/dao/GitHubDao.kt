@@ -1,5 +1,6 @@
 package com.busem.data.local.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -18,4 +19,10 @@ interface GitHubDao {
 
     @Query("SELECT * FROM repository ORDER BY watchers_count DESC")
     fun getRepos(): List<Repository>
+
+    @Query("DELETE FROM repository ")
+    fun clearRepos()
+
+//    @Query("SELECT * FROM repository ORDER BY watchers_count COLLATE NOCASE ASC")
+//    fun getRepos(): PagingSource<Int, Repository>
 }

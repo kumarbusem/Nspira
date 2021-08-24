@@ -1,79 +1,53 @@
 package com.busem.nspira.features.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.*
-import com.busem.data.common.ClientException
-import com.busem.data.common.ServerException
-import com.busem.data.common.SocketTimeoutException
-import com.busem.data.common.UnauthorizedException
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.busem.data.models.Repository
 import com.busem.data.repositories.DataSourceGithub
-import com.busem.data.repositories.RepoPaging
+import com.busem.data.repositories.PagingDataSource
 import com.busem.data.repositories.RepoGithub
 import com.busem.nspira.common.BaseViewModel
-import com.busem.nspira.common.SingleLiveEvent
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HomeViewModel(
-    private val githubRepo: DataSourceGithub = RepoGithub()
+    private val repoGitHub: DataSourceGithub = RepoGithub()
 ) : BaseViewModel() {
 
-    private val _searchTerm by lazy { SingleLiveEvent<String>() }
+    private val _obsPagingData by lazy { MutableLiveData<PagingData<Repository>>() }
+    val obsPagingData: LiveData<PagingData<Repository>> by lazy { _obsPagingData }
 
     private val _repos by lazy { MutableLiveData<List<Repository>>() }
     val repos: LiveData<List<Repository>> by lazy { _repos }
 
-    val obsPaging = MutableLiveData<PagingData<Repository>>()
-
-//    public lateinit var listData: Flow<PagingData<Repository>>
-
     init {
-//        ::listData.isInitialized
         searchResults("Android")
     }
 
     fun searchResults(searchTerm: String) {
-        ioScope.launch {
-            try {
+        try {
+            ioScope.launch {
+
                 Pager(PagingConfig(pageSize = 10)) {
-                    RepoPaging(searchTerm)
+                    PagingDataSource(searchTerm)
                 }.flow.cachedIn(ioScope).collect {
 
-                    obsPaging.postValue(it)
+                    _obsPagingData.postValue(it)
 
                 }
-            }catch (e: Exception){
-                obsToastMessage.postValue(e.message)
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            obsToastMessage.postValue(e.message)
+            _repos.postValue(repoGitHub.getRepositories())
         }
     }
-
-//    fun searchResults(searchTerm: String) {
-//        _searchTerm.postValue(searchTerm)
-//
-//        ioScope.launch {
-//            withContext(ioScope.coroutineContext) {
-//                githubRepo.fetchRepositories(searchTerm)
-//            }?.let { repos ->
-//                Log.e("REPOS::", repos.toString())
-//                _repos.postValue(repos)
-//                return@let
-//            } ?: run {
-//                _repos.postValue(githubRepo.getRepositories())
-//                return@run
-//            }
-//        }
-//
-//    }
 
     fun saveSelectedRepo(repo: Repository) {
         repoPrefs.saveRepo(repo)
     }
-
-
 }

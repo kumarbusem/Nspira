@@ -2,7 +2,7 @@ package com.busem.data.common
 
 import java.io.IOException
 
-sealed class DataException: IOException() {
+sealed class DataException: Exception() {
 
     abstract override val message: String
 

@@ -17,7 +17,7 @@ import retrofit2.http.Url
 /**
  * Remote service to fetch for the repositories list.
  */
-interface GithubService {
+interface NetworkInterface {
 
     @GET("search/repositories")
     suspend fun fetchRepositories(

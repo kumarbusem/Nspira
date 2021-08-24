@@ -15,7 +15,7 @@ import javax.net.ssl.X509TrustManager
 /**
  * Singleton remote service provider that provides the network call handling object.
  */
-object ServiceProvider {
+object NetworkClient {
 
     /**
      * Builds and provides the [Retrofit] object lazily.
