@@ -2,11 +2,24 @@ package com.busem.nspira
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import com.busem.nspira.common.BaseActivity
+import com.busem.nspira.common.ViewModelFactory
+import com.busem.nspira.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(
+    ActivityMainBinding::inflate
+) {
+    override fun setViewModel(): MainViewModel =
+        ViewModelProvider(this@MainActivity, ViewModelFactory {
+            MainViewModel()
+        }).get(MainViewModel::class.java)
+
+    override fun setupViews(): ActivityMainBinding.() -> Unit = {
+
+    }
+
+    override fun setupObservers(): MainViewModel.() -> Unit = {
 
     }
 }
