@@ -15,7 +15,7 @@ class LoginViewModel(
     private val _userType by lazy { MutableLiveData<UserType>() }
     val userType: LiveData<UserType> by lazy { _userType }
 
-    fun gitInUser(username: String, password: String) {
+    fun loginUser(username: String, password: String) {
         ioScope.launch {
             userRepo.getUser(username, password)?.let {
                 _userType.postValue(UserType.EXISTING)

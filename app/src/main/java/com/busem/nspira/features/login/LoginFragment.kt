@@ -46,7 +46,7 @@ class LoginFragment : BaseAbstractFragment<LoginViewModel, FragmentLoginBinding>
                     return@setOnClickListener
                 }
 
-                viewModel.gitInUser(username, password)
+                viewModel.loginUser(username, password)
             }
         }
 
@@ -59,15 +59,15 @@ class LoginFragment : BaseAbstractFragment<LoginViewModel, FragmentLoginBinding>
         userType.observe(viewLifecycleOwner) { userType ->
             when (userType) {
                 UserType.NEW -> {
-                    toast(getString(R.string.welcome))
+                    toast(getString(R.string.welcome), true)
                     navigateToHomeScreen()
                 }
                 UserType.EXISTING -> {
-                    toast(getString(R.string.welcome_back))
+                    toast(getString(R.string.welcome_back), true)
                     navigateToHomeScreen()
                 }
                 else -> {
-                    toast(getString(R.string.failed_to_auth))
+                    toast(getString(R.string.failed_to_auth), true)
                 }
             }
         }
