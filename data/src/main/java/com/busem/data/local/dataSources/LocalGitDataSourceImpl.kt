@@ -11,12 +11,8 @@ class LocalGitDataSourceImpl : LocalGitDataSource {
         cache.saveRepos(repositories)
     }
 
-    override fun getRepositories(searchKey: String): List<Repository> {
-        return cache.getRepos("%$searchKey%")
-    }
-
-    override fun saveRepository(repo: Repository) {
-        cache.saveRepo(repo)
+    override fun getRepositories(): List<Repository> {
+        return cache.getRepos()
     }
 
     override fun getRepository(id: Int): Repository? {

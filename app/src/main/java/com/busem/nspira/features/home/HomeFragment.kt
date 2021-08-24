@@ -18,7 +18,7 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
 ) {
 
     private val repositoriesAdapter by lazy {
-        RepositoriesAdapter(::selectedRepo, ::toggleFavorite)
+        RepositoriesAdapter(::selectedRepo)
     }
 
     override fun setViewModel(): HomeViewModel =
@@ -29,17 +29,7 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
     override fun setupViews(): FragmentHomeBinding.() -> Unit = {
 
         fun setupRepoList() {
-            rvRepositories.apply {
-                adapter = repositoriesAdapter
-                if (itemDecorationCount < 1) {
-                    addItemDecoration(
-                        DividerItemDecoration(
-                            requireContext(),
-                            DividerItemDecoration.HORIZONTAL
-                        )
-                    )
-                }
-            }
+            rvRepositories.apply { adapter = repositoriesAdapter }
         }
 
         fun setupSearch() {
@@ -76,19 +66,14 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
 
         repos.observe(viewLifecycleOwner) { repoList ->
             binding.tvNoResults.isVisible = repoList.isNullOrEmpty()
-
             repositoriesAdapter.submitList(repoList)
-            repositoriesAdapter.notifyDataSetChanged()
         }
 
     }
 
-    private fun toggleFavorite(data: Repository) {
-        viewModel.toggleFavorite(data)
-    }
-
-    private fun selectedRepo(data: Repository) {
-        viewModel.toggleFavorite(data)
+    private fun selectedRepo(repo: Repository) {
+        viewModel.saveSelectedRepo(repo)
+        navigateById(R.id.action_homeFragment_to_repoDetailsFragment)
     }
 
 }

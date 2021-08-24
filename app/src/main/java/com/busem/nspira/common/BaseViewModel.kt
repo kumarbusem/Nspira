@@ -3,7 +3,10 @@ package com.busem.nspira.common
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.busem.data.common.DataException
 import com.busem.data.common.DataState
+import com.busem.data.local.sharedPrefs.SharedPreferencesDataSource
+import com.busem.data.repositories.RepoSharedPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,7 +16,9 @@ import kotlinx.coroutines.SupervisorJob
  * and runs a [SupervisorJob] that gets cancelled when the [BaseViewModel] class gets cleared.
  */
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(
+    protected val repoPrefs: SharedPreferencesDataSource = RepoSharedPreferences()
+) : ViewModel() {
 
 
     @Suppress("PropertyName")
@@ -22,6 +27,8 @@ abstract class BaseViewModel : ViewModel() {
     val obsIsDataLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     val obsToastMessage by lazy { SingleLiveEvent<String>() }
+
+    var isUserLogout = MutableLiveData<Boolean>()
 
     /*
     SupervisorJob that handles each task as a separate child.
@@ -51,6 +58,22 @@ abstract class BaseViewModel : ViewModel() {
         logic()
         obsIsDataLoading.postValue(false)
     }
+
+    internal  fun handleExceptions(dataException: DataException){
+
+        Log.e("ERROR Exception", dataException.printStackTrace().toString())
+        when (dataException) {
+            is DataException.UnauthorizedException -> logoutUser()
+            is DataException.SocketTimeoutException -> obsToastMessage.postValue(dataException.message)
+            is DataException.ApiException -> obsToastMessage.postValue(dataException.message)
+        }
+    }
+
+    internal fun logoutUser() {
+        repoPrefs.deleteAllPrefs()
+        isUserLogout.postValue(true)
+    }
+
 
     override fun onCleared() {
         super.onCleared()

@@ -21,11 +21,9 @@ android {
     buildTypes {
         debug {
             debuggable true
-            buildConfigField "String", "SERVER_URL", "\"https://api.github.com/\""
         }
         release {
             minifyEnabled false
-            buildConfigField "String", "SERVER_URL", "\"https://api.github.com/\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

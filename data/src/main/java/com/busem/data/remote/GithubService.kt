@@ -3,11 +3,16 @@ package com.busem.data.remote
 import com.busem.data.common.QUERY_PARAMETER_KEY_ITEMS
 import com.busem.data.common.QUERY_PARAMETER_KEY_PAGE
 import com.busem.data.common.QUERY_PARAMETER_KEY_SEARCH
+import com.busem.data.models.Contributor
 import com.busem.data.models.RemoteRepository
 import com.google.gson.annotations.SerializedName
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.Url
+
+
+
 
 /**
  * Remote service to fetch for the repositories list.
@@ -20,6 +25,9 @@ interface GithubService {
         @Query(QUERY_PARAMETER_KEY_PAGE) page: Int,
         @Query(QUERY_PARAMETER_KEY_ITEMS) per_page: Int,
     ): Response<RepositoriesResponseBody>
+
+    @GET
+    suspend fun fetchContributors(@Url url: String?): Response<List<Contributor>>
 }
 
 

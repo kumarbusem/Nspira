@@ -33,6 +33,26 @@
         android:name="com.busem.nspira.features.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_repoDetailsFragment"
+            app:destination="@id/repoDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/repoDetailsFragment"
+        android:name="com.busem.nspira.features.repoDetails.RepoDetailsFragment"
+        android:label="fragment_repo_details"
+        tools:layout="@layout/fragment_repo_details">
+        <action
+            android:id="@+id/action_repoDetailsFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.busem.nspira.features.webView.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view">
     </fragment>
 
 </navigation>

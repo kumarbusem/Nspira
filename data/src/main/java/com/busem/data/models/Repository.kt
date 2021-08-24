@@ -4,12 +4,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.busem.data.common.EMPTY_STRING
+import kotlin.String
 
 @Entity(tableName = Repository.REPOSITORY)
 data class Repository(
     @ColumnInfo(name = ID) @PrimaryKey val id: Int,
     @ColumnInfo(name = NAME) val name: String,
     @ColumnInfo(name = OWNER_IMAGE) val ownerImage: String,
+    @ColumnInfo(name = OWNER) val owner: String,
     @ColumnInfo(name = DESCRIPTION) val description: String,
     @ColumnInfo(name = FULL_NAME) val fullName: String,
     @ColumnInfo(name = HAS_DOWNLOADS) val hasDownloads: Boolean?,
@@ -30,7 +32,7 @@ data class Repository(
         const val FULL_NAME = "full_name"
         const val WATCHERS_COUNT = "watchers_count"
         const val HTML_URL = "html_url"
-        const val OWNER_IMAGE = "owner"
+        const val OWNER_IMAGE = "owner_image"
         const val COMMITS_URL = "commits_url"
         const val CONTRIBUTORS_URL = "contributors_url"
         const val HAS_ISSUES = "has_issues"
@@ -45,6 +47,7 @@ data class Repository(
                 id = repo.id,
                 name = repo.name ?: EMPTY_STRING,
                 ownerImage = repo.owner?.profilePicUrl ?: EMPTY_STRING,
+                owner = repo.owner?.loginName ?: EMPTY_STRING,
                 description = repo.description ?: EMPTY_STRING,
                 fullName = repo.fullName ?: EMPTY_STRING,
                 watchersCount = repo.watchersCount ?: 0,

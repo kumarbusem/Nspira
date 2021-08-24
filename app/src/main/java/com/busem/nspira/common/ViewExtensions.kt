@@ -15,7 +15,7 @@ fun AppCompatImageView.setUrlSource(url: String?) {
             return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 android.R.drawable.ic_menu_recent_history
             } else {
-                R.drawable.image_load_placeholder
+                R.drawable.icon_image
             }
         }
 

@@ -2,7 +2,7 @@
     <string name="app_name">Nspira</string>
     <string name="failed_to_navigate">Failed to navigate</string>
     <string name="username">Username</string>
-    <string name="git_in">Git In</string>
+    <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="enter_proper_password">Enter proper password</string>
     <string name="enter_proper_username">Enter proper username</string>

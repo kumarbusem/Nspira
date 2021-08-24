@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue">#1C2E5D</color>
+    <color name="blue">#325da6</color>
     <color name="orange">#F25B24</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
@@ -9,7 +9,7 @@
     <color name="white_100">#F2F6F6</color>
     <color name="white_200">#D7DFDF</color>
 
-    <color name="green_400">#0FC082</color>
+    <color name="green_400">#8bbe4b</color>
     <color name="green_600">#0C9A68</color>
 
     <color name="red">#FF3F3F</color>

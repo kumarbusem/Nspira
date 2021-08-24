@@ -5,24 +5,24 @@
 
     <data>
 
-        <import type="com.busem.data.models.Repository" />
+        <import type="com.busem.data.models.Contributor" />
 
         <import type="android.view.View" />
 
         <variable
             name="data"
-            type="com.busem.data.models.Repository" />
+            type="com.busem.data.models.Contributor" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
+        android:layout_marginVertical="5dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="8dp"
+        app:cardElevation="3dp"
         app:strokeColor="@color/green_400"
-        app:strokeWidth="2dp">
+        app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clRoot"
@@ -32,15 +32,15 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?selectableItemBackground"
-            android:padding="16dp">
+            android:padding="10dp">
 
 
             <!--OWNER PROFILE IMAGE-->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvImage"
-                android:layout_width="@dimen/image_item_width"
-                android:layout_height="@dimen/image_item_height"
-                app:cardCornerRadius="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -49,8 +49,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivOwnerImage"
-                    android:layout_width="@dimen/image_item_height"
-                    android:layout_height="@dimen/image_item_width"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     tools:src="@drawable/icon_image" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -66,8 +66,7 @@
                 android:singleLine="true"
                 android:textColor="@color/blue"
                 android:textSize="15dp"
-                android:textStyle="bold"
-                android:text="@{data.name}"
+                android:text="@{data.loginName}"
                 app:layout_constraintBottom_toTopOf="@id/tvOwner"
                 app:layout_constraintStart_toEndOf="@id/cvImage"
                 app:layout_constraintTop_toTopOf="@id/cvImage"
@@ -83,29 +82,14 @@
                 android:layout_marginLeft="@dimen/dp5"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="@{data.owner}"
+                android:text="@{String.valueOf(data.id)}"
                 android:textColor="@color/green_400"
                 android:textSize="12dp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/cvImage"
                 app:layout_constraintStart_toEndOf="@id/cvImage"
                 app:layout_constraintTop_toBottomOf="@id/tvName"
                 app:layout_constraintVertical_chainStyle="packed"
-                tools:text="Kumar Busem" />
-
-            <!--DESCRIPTION-->
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:text="@{data.description}"
-                android:textColor="@color/colorGrey700"
-                android:textSize="12dp"
-                app:layout_constraintTop_toBottomOf="@id/cvImage"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM" />
+                tools:text="812923937" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

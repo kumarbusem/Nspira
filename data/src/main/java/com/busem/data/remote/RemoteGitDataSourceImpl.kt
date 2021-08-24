@@ -1,6 +1,7 @@
 package com.busem.data.remote
 
 import com.busem.data.common.SafeApiRequest
+import com.busem.data.models.Contributor
 
 class RemoteGitDataSourceImpl : RemoteGitDataSource, SafeApiRequest() {
 
@@ -8,6 +9,10 @@ class RemoteGitDataSourceImpl : RemoteGitDataSource, SafeApiRequest() {
 
     override suspend fun fetchRepositories(searchKey: String): RepositoriesResponseBody? {
         return apiRequest { service.fetchRepositories(searchKey, 1, 10) }
+    }
+
+    override suspend fun fetchContributors(url: String): List<Contributor>? {
+        return apiRequest { service.fetchContributors(url) }
     }
 
 }

@@ -1,21 +1,23 @@
-package com.busem.nspira.features.home
+package com.busem.nspira.features.repoDetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.busem.data.models.Contributor
 import com.busem.data.models.Repository
 import com.busem.nspira.common.setUrlSource
+import com.busem.nspira.databinding.ItemContributorBinding
 import com.busem.nspira.databinding.ItemRepositoryBinding
 
-class RepositoriesAdapter(
-    private val onClick: (data: Repository) -> Unit
-) : ListAdapter<Repository, RepositoriesAdapter.RepoViewHolder>(DIFF) {
+class ContributorAdapter(
+    private val onClick: (data: Contributor) -> Unit
+) : ListAdapter<Contributor, ContributorAdapter.RepoViewHolder>(DIFF) {
 
     override fun onCreateViewHolder(viewHolder: ViewGroup, viewType: Int): RepoViewHolder {
         return RepoViewHolder(
-            ItemRepositoryBinding.inflate(
+            ItemContributorBinding.inflate(
                 LayoutInflater.from(viewHolder.context),
                 viewHolder,
                 false
@@ -27,18 +29,18 @@ class RepositoriesAdapter(
         getItem(position)?.let { viewHolder.bind(it) }
     }
 
-    inner class RepoViewHolder(private val item: ItemRepositoryBinding) :
+    inner class RepoViewHolder(private val item: ItemContributorBinding) :
         RecyclerView.ViewHolder(item.root) {
 
-        fun bind(repo: Repository) {
+        fun bind(contributor: Contributor) {
 
             item.apply {
 
-                data = repo
-                ivOwnerImage.setUrlSource(repo.ownerImage)
+                data = contributor
+                ivOwnerImage.setUrlSource(contributor.profilePicUrl)
 
                 clRoot.setOnClickListener {
-                    onClick(repo)
+                    onClick(contributor)
                 }
             }
         }
@@ -46,11 +48,11 @@ class RepositoriesAdapter(
 
     companion object {
 
-        val DIFF = object : DiffUtil.ItemCallback<Repository>() {
+        val DIFF = object : DiffUtil.ItemCallback<Contributor>() {
 
-            override fun areItemsTheSame(old: Repository, new: Repository) = old.id == new.id
+            override fun areItemsTheSame(old: Contributor, new: Contributor) = old.id == new.id
 
-            override fun areContentsTheSame(old: Repository, new: Repository) = old == new
+            override fun areContentsTheSame(old: Contributor, new: Contributor) = old == new
         }
     }
 }

@@ -1,18 +1,23 @@
 package com.busem.data.repositories
 
-import com.busem.data.models.User
 import com.busem.data.local.sharedPrefs.SharedPreferencesDataSource
 import com.busem.data.local.sharedPrefs.SharedPreferencesDataSourceImpl
+import com.busem.data.models.Repository
 
 class RepoSharedPreferences: SharedPreferencesDataSource {
 
     private val mSpDS: SharedPreferencesDataSource by lazy { SharedPreferencesDataSourceImpl() }
 
-    override fun saveUser(user: User) = mSpDS.saveUser(user)
 
-    override fun getUser(): User? = mSpDS.getUser()
+    override fun saveUrl(url: String) = mSpDS.saveUrl(url)
+    override fun getUrl(): String? = mSpDS.getUrl()
+    override fun clearUrl() = mSpDS.clearUrl()
 
-    override fun clearUser() = mSpDS.clearUser()
+
+    override fun saveRepo(repository: Repository) = mSpDS.saveRepo(repository)
+    override fun getRepo(): Repository? = mSpDS.getRepo()
+    override fun clearRepo() = mSpDS.clearRepo()
+
 
     override fun deleteAllPrefs() = mSpDS.deleteAllPrefs()
 }

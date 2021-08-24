@@ -6,9 +6,7 @@ interface LocalGitDataSource {
 
     fun saveRepositories(repositories: List<Repository>)
 
-    fun saveRepository(repo: Repository)
-
-    fun getRepositories(searchKey: String): List<Repository>
+    fun getRepositories(): List<Repository>
 
     fun getRepository(id: Int) : Repository?
 }

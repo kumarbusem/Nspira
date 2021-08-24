@@ -1,20 +1,28 @@
 package com.busem.data.local.sharedPrefs
 
-import com.busem.data.models.User
+import com.busem.data.models.Repository
 
 class SharedPreferencesDataSourceImpl : SharedPreferencesDataSource {
 
     private val mSpHelper: SharedPreferencesHelper by lazy { SharedPreferencesHelper.getInstance() }
-    override fun saveUser(user: User) = mSpHelper.putObject(SP_USER, user)
 
-    override fun getUser(): User? = mSpHelper.getObject(SP_USER)
 
-    override fun clearUser() =mSpHelper.remove(SP_USER)
+    override fun saveUrl(url: String) = mSpHelper.putObject(SP_URL, url)
+    override fun getUrl(): String? = mSpHelper.getObject(SP_URL)
+    override fun clearUrl() =mSpHelper.remove(SP_URL)
+
+
+    override fun saveRepo(repository: Repository) = mSpHelper.putObject(SP_SELECTED_REPO, repository)
+    override fun getRepo(): Repository? = mSpHelper.getObject(SP_SELECTED_REPO)
+    override fun clearRepo() = mSpHelper.remove(SP_SELECTED_REPO)
+
 
     override fun deleteAllPrefs() = mSpHelper.clear()
 
+
     companion object {
-        private const val SP_USER: String = "SP_LOGGED_IN_USER"
+        private const val SP_URL: kotlin.String = "SP_URL"
+        private const val SP_SELECTED_REPO: kotlin.String = "SP_SELECTED_REPO"
     }
 
 }
