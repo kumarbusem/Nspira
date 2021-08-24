@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.busem.sample"
+        applicationId "com.busem.nspira"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
@@ -50,6 +50,7 @@ android {
 
 dependencies {
 
+    implementation project(path: ':data')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation 'androidx.core:core-ktx:1.6.0'

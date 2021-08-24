@@ -2,7 +2,6 @@ package com.busem.nspira.common
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.busem.data.common.DataState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -37,13 +36,6 @@ abstract class BaseViewModel : ViewModel() {
      */
     val ioScope = CoroutineScope(job + Dispatchers.IO)
 
-    protected inline fun <reified T> DataState<T>.logDetails(): DataState<T> {
-        this.exceptionOrNull()?.let {
-            Log.e(TAG, "Failed to fetch response : ${it.message}")
-            Log.e(TAG, it.stackTraceToString())
-        }
-        return this
-    }
 
     protected suspend fun doWhileLoading(logic: suspend () -> Unit) {
         obsIsDataLoading.postValue(true)

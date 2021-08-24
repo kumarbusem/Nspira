@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
-import com.busem.sample.R
+import com.busem.nspira.R
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding>(

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Nspira</string>
+    <string name="no_inter_msg">No Internet</string>
 </resources>
