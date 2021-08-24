@@ -19,8 +19,8 @@ buildscript {
     ext.rxandroid_version = '2.1.1'
     ext.glide_version = '4.10.0'
     ext.room_version = '2.3.0'
+    ext.paging_version = '1.0.1'
     ext.okhttp_version = '4.4.0'
-    ext.paging_version = "3.0.1"
 
     repositories {
         google()

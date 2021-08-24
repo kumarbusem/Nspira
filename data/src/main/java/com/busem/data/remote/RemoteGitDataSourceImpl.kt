@@ -10,5 +10,4 @@ class RemoteGitDataSourceImpl : RemoteGitDataSource, SafeApiRequest() {
         return apiRequest { service.fetchRepositories(searchKey, 1, 10) }
     }
 
-
 }
