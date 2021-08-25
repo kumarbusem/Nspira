@@ -3,16 +3,12 @@ package com.busem.nspira.features.repoDetails
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.busem.data.models.Contributor
 import com.busem.nspira.R
 import com.busem.nspira.common.BaseAbstractFragment
 import com.busem.nspira.common.ViewModelFactory
 import com.busem.nspira.common.setUrlSource
-import com.busem.nspira.common.toast
 import com.busem.nspira.databinding.FragmentRepoDetailsBinding
-import com.busem.nspira.databinding.FragmentSplashBinding
-import com.busem.nspira.features.home.RepositoriesAdapter
 
 class RepoDetailsFragment : BaseAbstractFragment<RepoDetailsViewModel, FragmentRepoDetailsBinding>(
     FragmentRepoDetailsBinding::inflate,
@@ -33,9 +29,9 @@ class RepoDetailsFragment : BaseAbstractFragment<RepoDetailsViewModel, FragmentR
             rvContributors.apply { adapter = contributorAdapter }
         }
 
-        fun setupButtons(){
+        fun setupButtons() {
             ivBack.setOnClickListener { navigateBack() }
-            btnLink.setOnClickListener { navigateToRepoWebView() }
+            cvLink.setOnClickListener { navigateToRepoWebView() }
         }
 
         setupContributorList()
@@ -45,12 +41,12 @@ class RepoDetailsFragment : BaseAbstractFragment<RepoDetailsViewModel, FragmentR
 
     override fun setupObservers(): RepoDetailsViewModel.() -> Unit = {
 
-        selectedRepo.observe(viewLifecycleOwner,{
+        selectedRepo.observe(viewLifecycleOwner, {
             binding.ivOwnerImage.setUrlSource(it.ownerImage)
             Log.e("REPO::", it.toString())
         })
 
-        contributors.observe(viewLifecycleOwner,{ list ->
+        contributors.observe(viewLifecycleOwner, { list ->
             Log.e("CONTRI::", list.toString())
             binding.tvNoResults.isVisible = list.isNullOrEmpty()
             contributorAdapter.submitList(list)
@@ -58,12 +54,12 @@ class RepoDetailsFragment : BaseAbstractFragment<RepoDetailsViewModel, FragmentR
 
     }
 
-    private fun navigateToRepoWebView(){
+    private fun navigateToRepoWebView() {
         viewModel.saveRepoURL()
         navigateById(R.id.action_repoDetailsFragment_to_webViewFragment)
     }
 
-    private fun contributorSelected(contributor: Contributor){
+    private fun contributorSelected(contributor: Contributor) {
         viewModel.saveURL(contributor.link)
         navigateById(R.id.action_repoDetailsFragment_to_webViewFragment)
     }

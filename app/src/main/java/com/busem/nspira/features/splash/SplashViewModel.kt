@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(
     private val userRepo: DataSourceUserRepo = RepoUser()
-)  : BaseViewModel() {
+) : BaseViewModel() {
 
     private val _navigateTo by lazy { MutableLiveData<NavDestination>() }
     val navigateTo: LiveData<NavDestination> by lazy { _navigateTo }

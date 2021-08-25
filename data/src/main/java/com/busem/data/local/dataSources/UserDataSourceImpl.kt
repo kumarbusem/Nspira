@@ -5,7 +5,7 @@ import com.busem.data.local.roomDatabase.RoomProvider
 import com.busem.data.models.User
 
 class UserDataSourceImpl(
-    private val cache: UserDao =  RoomProvider.getInstance().userDao()
+    private val cache: UserDao = RoomProvider.getInstance().userDao()
 ) : UserDao {
 
     override fun getUser(username: String, password: String): User? {
@@ -14,6 +14,10 @@ class UserDataSourceImpl(
 
     override fun getUsers(): List<User> {
         return cache.getUsers()
+    }
+
+    override fun clearUsers() {
+        cache.clearUsers()
     }
 
     override fun saveUser(user: User) {

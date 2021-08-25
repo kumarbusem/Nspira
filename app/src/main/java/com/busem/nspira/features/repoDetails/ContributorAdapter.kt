@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.busem.data.models.Contributor
-import com.busem.data.models.Repository
 import com.busem.nspira.common.setUrlSource
 import com.busem.nspira.databinding.ItemContributorBinding
-import com.busem.nspira.databinding.ItemRepositoryBinding
 
 class ContributorAdapter(
     private val onClick: (data: Contributor) -> Unit

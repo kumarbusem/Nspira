@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.busem.data.common.DataException
 import com.busem.data.common.DataState
 import com.busem.data.local.sharedPrefs.SharedPreferencesDataSource
+import com.busem.data.repositories.DataSourceUserRepo
 import com.busem.data.repositories.RepoSharedPreferences
+import com.busem.data.repositories.RepoUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 /**
  * This class provides a [CoroutineScope] that dispatches on the [Dispatchers.Main] thread
@@ -17,7 +20,8 @@ import kotlinx.coroutines.SupervisorJob
  */
 
 abstract class BaseViewModel(
-    protected val repoPrefs: SharedPreferencesDataSource = RepoSharedPreferences()
+    protected val repoPrefs: SharedPreferencesDataSource = RepoSharedPreferences(),
+    private val userDatabase: DataSourceUserRepo = RepoUser(),
 ) : ViewModel() {
 
 
@@ -59,7 +63,7 @@ abstract class BaseViewModel(
         obsIsDataLoading.postValue(false)
     }
 
-    internal  fun handleExceptions(dataException: DataException){
+    internal fun handleExceptions(dataException: DataException) {
 
         Log.e("ERROR Exception", dataException.printStackTrace().toString())
         when (dataException) {
@@ -70,7 +74,7 @@ abstract class BaseViewModel(
     }
 
     internal fun logoutUser() {
-        repoPrefs.deleteAllPrefs()
+        ioScope.launch { userDatabase.clearUsers() }
         isUserLogout.postValue(true)
     }
 

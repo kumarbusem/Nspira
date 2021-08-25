@@ -1,7 +1,6 @@
 package com.busem.data.models
 
 import com.google.gson.annotations.SerializedName
-import kotlin.String
 
 data class Contributor(
     @SerializedName(ID) val id: Int,

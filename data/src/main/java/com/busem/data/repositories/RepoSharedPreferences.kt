@@ -6,7 +6,7 @@ import com.busem.data.models.Repository
 
 class RepoSharedPreferences(
     private val mSpDS: SharedPreferencesDataSource = SharedPreferencesDataSourceImpl()
-): SharedPreferencesDataSource {
+) : SharedPreferencesDataSource {
 
 
     override fun saveUrl(url: String) = mSpDS.saveUrl(url)

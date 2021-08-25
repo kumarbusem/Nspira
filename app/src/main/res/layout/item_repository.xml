@@ -62,12 +62,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="@dimen/dp5"
-                android:ellipsize="end"
-                android:singleLine="true"
+                android:maxLines="1"
+                android:text="@{data.name}"
                 android:textColor="@color/blue"
                 android:textSize="15dp"
                 android:textStyle="bold"
-                android:text="@{data.name}"
                 app:layout_constraintBottom_toTopOf="@id/tvOwner"
                 app:layout_constraintStart_toEndOf="@id/cvImage"
                 app:layout_constraintTop_toTopOf="@id/cvImage"
@@ -81,8 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="@dimen/dp5"
-                android:ellipsize="end"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="@{data.owner}"
                 android:textColor="@color/green_400"
                 android:textSize="12dp"
@@ -108,13 +106,14 @@
                 tools:text="RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM" />
 
             <ImageView
-                android:layout_width="@dimen/dp20"
-                android:layout_marginTop="14dp"
                 android:id="@+id/ivWatch"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="14dp"
                 android:src="@drawable/ic_baseline_remove_red_eye_24"
-                app:layout_constraintTop_toBottomOf="@id/tvDescription"
-                android:layout_height="@dimen/dp20"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
             <TextView
                 android:id="@+id/tvWatchCount"
                 android:layout_width="@dimen/dp0"
@@ -134,42 +133,44 @@
 
 
             <ImageView
-                android:layout_width="@dimen/dp20"
-                android:layout_marginTop="14dp"
                 android:id="@+id/ivFork"
-                app:layout_constraintEnd_toStartOf="@id/tvForkCount"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="14dp"
                 android:src="@drawable/ic_baseline_bolt_24"
-                app:layout_constraintTop_toBottomOf="@id/tvDescription"
-                android:layout_height="@dimen/dp20"/>
+                app:layout_constraintEnd_toStartOf="@id/tvForkCount"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
             <TextView
                 android:id="@+id/tvForkCount"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{String.valueOf(data.forksCount)}"
                 android:textColor="@color/colorGrey700"
                 android:textSize="12dp"
-                android:layout_marginEnd="20dp"
                 app:layout_constraintBottom_toBottomOf="@id/ivFork"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/ivFork"
                 app:layout_constraintVertical_chainStyle="packed"
-                tools:text="12133"
-                android:layout_marginRight="20dp" />
+                tools:text="12133" />
 
             <ImageView
-                android:layout_width="@dimen/dp20"
-                android:layout_marginTop="14dp"
                 android:id="@+id/ivStar"
-                app:layout_constraintStart_toEndOf="@id/tvWatchCount"
-                app:layout_constraintEnd_toStartOf="@id/tvStarCount"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="14dp"
                 android:src="@drawable/ic_baseline_star_24"
+                app:layout_constraintEnd_toStartOf="@id/tvStarCount"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toBottomOf="@id/tvDescription"
-                android:layout_height="@dimen/dp20"/>
+                app:layout_constraintStart_toEndOf="@id/tvWatchCount"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
             <TextView
                 android:id="@+id/tvStarCount"
                 android:layout_width="wrap_content"

@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.busem.data.common.EMPTY_STRING
-import com.google.gson.annotations.SerializedName
-import kotlin.String
 
 @Entity(tableName = Repository.REPOSITORY)
 data class Repository(

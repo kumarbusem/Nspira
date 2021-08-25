@@ -12,6 +12,7 @@ import com.busem.nspira.common.BaseAbstractFragment
 import com.busem.nspira.common.ViewModelFactory
 import com.busem.nspira.common.toast
 import com.busem.nspira.databinding.FragmentHomeBinding
+import com.busem.nspira.features.dialogs.DialogInfo
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -35,8 +36,8 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = repositoriesAdapter.withLoadStateHeaderAndFooter(
-                    header = GitLoadStateAdapter {repositoriesAdapter.retry()},
-                    footer = GitLoadStateAdapter {repositoriesAdapter.retry()}
+                    header = GitLoadStateAdapter { repositoriesAdapter.retry() },
+                    footer = GitLoadStateAdapter { repositoriesAdapter.retry() }
                 )
             }
         }
@@ -67,8 +68,14 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
             }
         }
 
+        fun setupButtons() {
+            mcvLogout.setOnClickListener { showConfirmationDialogueForLogout { viewModel.logoutUser() } }
+            mcvProfilePic.setOnClickListener { showToast("Profile - Not implemented") }
+        }
+
         setupSearch()
         setupList()
+        setupButtons()
     }
 
     override fun setupObservers(): HomeViewModel.() -> Unit = {
@@ -82,5 +89,18 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
     private fun selectedRepo(repo: Repository) {
         viewModel.saveSelectedRepo(repo)
         navigateById(R.id.action_homeFragment_to_repoDetailsFragment)
+    }
+
+    private fun showConfirmationDialogueForLogout(onConfirmation: () -> Unit) {
+        DialogInfo.Builder()
+            .setMessage("Are you sure you want Logout")
+            .onPrimaryAction(onConfirmation)
+            .setSecondaryButtonVisibility(false)
+            .dismissOnClick()
+            .build()
+            .show(
+                this@HomeFragment.childFragmentManager,
+                DialogInfo::class.java.simpleName
+            )
     }
 }

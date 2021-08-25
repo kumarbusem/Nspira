@@ -1,24 +1,19 @@
 package com.busem.nspira.features.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.paging.*
-import com.busem.data.local.dao.GitHubDao
-import com.busem.data.local.dataSources.LocalGitDataSourceImpl
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.busem.data.models.Repository
-import com.busem.data.repositories.DataSourceGithub
 import com.busem.data.repositories.PagingDataSource
-import com.busem.data.repositories.RepoGithub
 import com.busem.nspira.common.BaseViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
-    private val repoGitHub: DataSourceGithub = RepoGithub(),
-    private val cache: GitHubDao = LocalGitDataSourceImpl(),
-) : BaseViewModel() {
+class HomeViewModel() : BaseViewModel() {
 
     private val _obsPagingData by lazy { MutableLiveData<PagingData<Repository>>() }
     val obsPagingData: LiveData<PagingData<Repository>> by lazy { _obsPagingData }
@@ -32,6 +27,7 @@ class HomeViewModel(
 
 
     fun searchResults(searchTerm: String) {
+        Log.e("SEARCH::", searchTerm)
         try {
             ioScope.launch {
                 /**

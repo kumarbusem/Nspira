@@ -7,8 +7,6 @@ import com.busem.data.common.IS_CACHE_ALREADY_LOADED
 import com.busem.data.local.dao.GitHubDao
 import com.busem.data.local.dataSources.LocalGitDataSourceImpl
 import com.busem.data.models.Repository
-import com.busem.data.remote.RemoteGitDataSource
-import com.busem.data.remote.RemoteGitDataSourceImpl
 
 class PagingDataSource(
     private val searchKey: String,

@@ -8,10 +8,12 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.busem.nspira.databinding.LoadStateFooterBinding
 
-class GitLoadStateAdapter(private val retry: ()-> Unit) : LoadStateAdapter<GitLoadStateAdapter.LoadStateViewHolder>(){
+class GitLoadStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<GitLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
-        val binding = LoadStateFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            LoadStateFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoadStateViewHolder(binding)
     }
 
@@ -19,7 +21,8 @@ class GitLoadStateAdapter(private val retry: ()-> Unit) : LoadStateAdapter<GitLo
         holder.bind(loadState)
     }
 
-    inner class LoadStateViewHolder(private val binding: LoadStateFooterBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class LoadStateViewHolder(private val binding: LoadStateFooterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.btnRetry.setOnClickListener {
@@ -27,8 +30,8 @@ class GitLoadStateAdapter(private val retry: ()-> Unit) : LoadStateAdapter<GitLo
             }
         }
 
-        fun bind(loadState: LoadState){
-            with(binding){
+        fun bind(loadState: LoadState) {
+            with(binding) {
                 progressBar.isVisible = loadState is LoadState.Loading
                 btnRetry.isVisible = loadState !is LoadState.Loading
                 tvError.isVisible = loadState !is LoadState.Loading

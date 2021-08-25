@@ -18,18 +18,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blue">
+
         <ImageView
             android:id="@+id/mcvCompany"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="36dp"
             android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
-            android:src="@drawable/icon_nspira_white"
             android:adjustViewBounds="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/mcvProfilePic"
+            android:src="@drawable/icon_nspira_white"
             app:layout_constraintBottom_toBottomOf="@id/mcvProfilePic"
-            android:layout_marginLeft="14dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/mcvProfilePic" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/mcvProfilePic"
             android:layout_width="50dp"
@@ -98,11 +100,13 @@
             android:drawablePadding="14dp"
             android:drawableTint="@color/blue"
             android:hint="@string/search_repositories"
+            android:imeOptions="actionSearch"
             android:inputType="textCapWords"
             android:padding="12dp"
-            android:textColor="@color/white"
+            android:textColor="@color/blue"
             android:textColorHint="@color/blue"
-            android:textSize="15sp"
+            android:textSize="15dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mcvProfilePic"
@@ -115,6 +119,7 @@
             android:layout_marginTop="14dp"
             android:background="@color/white_100"
             android:requiresFadingEdge="vertical"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

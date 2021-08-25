@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Nspira" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -10,6 +10,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="background">@color/black</item>
     </style>
+
     <style name="DialogSideInOutAnimation">
         <item name="android:windowEnterAnimation">@anim/enter_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/exit_to_bottom</item>

@@ -1,8 +1,6 @@
 package com.busem.data.models
 
-import com.busem.data.common.EMPTY_STRING
 import com.google.gson.annotations.SerializedName
-import kotlin.String
 
 data class RemoteRepository(
     @SerializedName(ID) val id: Int,

@@ -1,7 +1,5 @@
 package com.busem.nspira
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.busem.nspira.common.BaseActivity
 import com.busem.nspira.common.ViewModelFactory

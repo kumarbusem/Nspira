@@ -12,8 +12,6 @@ import retrofit2.http.Query
 import retrofit2.http.Url
 
 
-
-
 /**
  * Remote service to fetch for the repositories list.
  */

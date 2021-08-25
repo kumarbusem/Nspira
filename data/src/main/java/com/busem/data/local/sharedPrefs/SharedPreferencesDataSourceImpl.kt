@@ -9,10 +9,12 @@ class SharedPreferencesDataSourceImpl(
 
     override fun saveUrl(url: String) = mSpHelper.putObject(SP_URL, url)
     override fun getUrl(): String? = mSpHelper.getObject(SP_URL)
-    override fun clearUrl() =mSpHelper.remove(SP_URL)
+    override fun clearUrl() = mSpHelper.remove(SP_URL)
 
 
-    override fun saveRepo(repository: Repository) = mSpHelper.putObject(SP_SELECTED_REPO, repository)
+    override fun saveRepo(repository: Repository) =
+        mSpHelper.putObject(SP_SELECTED_REPO, repository)
+
     override fun getRepo(): Repository? = mSpHelper.getObject(SP_SELECTED_REPO)
     override fun clearRepo() = mSpHelper.remove(SP_SELECTED_REPO)
 

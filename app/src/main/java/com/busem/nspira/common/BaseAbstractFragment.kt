@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.viewbinding.ViewBinding
 import com.busem.nspira.BR
+import com.busem.nspira.R
 
 
 abstract class BaseAbstractFragment<V : BaseViewModel, B : ViewDataBinding>(
@@ -40,6 +40,14 @@ abstract class BaseAbstractFragment<V : BaseViewModel, B : ViewDataBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservers().invoke(viewModel)
+        setupDefaultObservers()
+    }
+
+    private fun setupDefaultObservers() {
+        viewModel.apply {
+            obsToastMessage.observe(viewLifecycleOwner, { showToast(it) })
+            isUserLogout.observe(viewLifecycleOwner, { navigateById(R.id.loginFragment) })
+        }
     }
 
     abstract fun setViewModel(): V

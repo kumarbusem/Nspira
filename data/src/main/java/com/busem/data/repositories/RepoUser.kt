@@ -21,4 +21,8 @@ class RepoUser(
         return dataSource.getUsers()
     }
 
+    override suspend fun clearUsers() {
+        dataSource.clearUsers()
+    }
+
 }

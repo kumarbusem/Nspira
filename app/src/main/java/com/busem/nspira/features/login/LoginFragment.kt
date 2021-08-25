@@ -20,7 +20,7 @@ class LoginFragment : BaseAbstractFragment<LoginViewModel, FragmentLoginBinding>
 
     override fun setupViews(): FragmentLoginBinding.() -> Unit = {
         fun setupFields() {
-            etUsername.doAfterTextChanged { etUsername.error = null }
+            etUserName.doAfterTextChanged { etUserName.error = null }
             etPassword.doAfterTextChanged { etPassword.error = null }
         }
 
@@ -28,7 +28,7 @@ class LoginFragment : BaseAbstractFragment<LoginViewModel, FragmentLoginBinding>
         fun setupGitIn() {
 
             fun userNameError() {
-                etUsername.error = getString(R.string.enter_proper_username)
+                etUserName.error = getString(R.string.enter_proper_username)
             }
 
             fun passwordError() {
@@ -36,7 +36,7 @@ class LoginFragment : BaseAbstractFragment<LoginViewModel, FragmentLoginBinding>
             }
 
             btnGitIn.setOnClickListener {
-                val username = etUsername.text.toString().trim().takeIf { it.isNotBlank() } ?: run {
+                val username = etUserName.text.toString().trim().takeIf { it.isNotBlank() } ?: run {
                     userNameError()
                     return@setOnClickListener
                 }
