@@ -43,12 +43,12 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
 
         fun setupSearch() {
 
-            etSearchRepo.requestFocus()
-            etSearchRepo.setOnEditorActionListener { _, actionId, _ ->
+            tilSearch.requestFocus()
+            tilSearch.setOnEditorActionListener { _, actionId, _ ->
 
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-                    val searchText = etSearchRepo.text.toString().trim()
+                    val searchText = tilSearch.text.toString().trim()
                         .takeIf { it.isNotBlank() } ?: run {
                         toast(getString(R.string.please_search_a_repository))
                         return@setOnEditorActionListener false
@@ -58,7 +58,7 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
 
                     val imm: InputMethodManager =
                         requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(etSearchRepo.windowToken, 0)
+                    imm.hideSoftInputFromWindow(tilSearch.windowToken, 0)
 
                     return@setOnEditorActionListener true
                 }
