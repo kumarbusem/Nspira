@@ -17,7 +17,7 @@ class LocalGitDataSourceImpl(
         return cache.getRepo(id)
     }
 
-    override fun getRepos(): List<Repository> {
+    override fun getRepos(): PagingSource<Int, Repository> {
         return cache.getRepos()
     }
 

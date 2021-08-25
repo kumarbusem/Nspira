@@ -34,7 +34,10 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
             binding.rvRepositories.apply {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = repositoriesAdapter
+                adapter = repositoriesAdapter.withLoadStateHeaderAndFooter(
+                    header = GitLoadStateAdapter {repositoriesAdapter.retry()},
+                    footer = GitLoadStateAdapter {repositoriesAdapter.retry()}
+                )
             }
         }
 

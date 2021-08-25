@@ -13,17 +13,24 @@ class RepoGithub(
     private val remote: RemoteGitDataSource = RemoteGitDataSourceImpl()
 ) : DataSourceGithub {
 
-    override suspend fun fetchRepositories(searchKey: String): List<Repository> {
+    override suspend fun fetchRepositories(searchKey: String, page: Int): List<Repository> {
 
-        val repositoriesResponseBody = remote.fetchRepositories(searchKey, 1)
-
-        if (repositoriesResponseBody != null) {
-            cache.saveRepos(repositoriesResponseBody.repositories.map {
-                mapFromRemoteToLocal(it)
-            })
-        }
-
-        return cache.getRepos()
+//        return try {
+//
+//            val repositoriesResponseBody = remote.fetchRepositories(searchKey, page)
+//
+//            if (repositoriesResponseBody != null) {
+//                cache.saveRepos(repositoriesResponseBody.repositories.map {
+//                    mapFromRemoteToLocal(it)
+//                })
+//            }
+//
+//            cache.getRepos()
+//
+//        } catch (e: Exception) {
+//            throw e
+//        }
+        return emptyList()
     }
 
 
@@ -33,7 +40,7 @@ class RepoGithub(
     }
 
 
-    override fun getRepositories(): List<Repository> =
-        cache.getRepos()
+    override fun getRepositories(): List<Repository> = emptyList()
+//        cache.getRepos()
 
 }
