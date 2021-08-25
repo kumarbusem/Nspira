@@ -16,6 +16,8 @@ data class RemoteRepository(
     @SerializedName(HTML_URL) val htmlUrl: String?,
     @SerializedName(FULL_NAME) val fullName: String?,
     @SerializedName(WATCHERS_COUNT) val watchersCount: Int?,
+    @SerializedName(STAR_COUNT) val starsCount: Int?,
+    @SerializedName(FORK_COUNT) val forksCount: Int?,
     @SerializedName(COMMITS_URL) val commitsUrl: String?,
     @SerializedName(CONTRIBUTORS_URL) val contributorsUrl: String?
 ) {
@@ -34,7 +36,8 @@ data class RemoteRepository(
         const val HAS_PROJECTS = "has_projects"
         const val HAS_DOWNLOADS = "has_downloads"
         const val HAS_WIKI = "has_wiki"
-
+        const val STAR_COUNT = "stargazers_count"
+        const val FORK_COUNT = "forks_count"
 
     }
 }

@@ -23,18 +23,20 @@ class HomeViewModel(
     private val _obsPagingData by lazy { MutableLiveData<PagingData<Repository>>() }
     val obsPagingData: LiveData<PagingData<Repository>> by lazy { _obsPagingData }
 
-    private val _repos by lazy { MutableLiveData<List<Repository>>() }
-    val repos: LiveData<List<Repository>> by lazy { _repos }
-
     init {
-        searchResults("Android")
+        /**
+         * By default it will search for "Kotlin" key
+         */
+        searchResults("Kotlin")
     }
 
 
     fun searchResults(searchTerm: String) {
         try {
             ioScope.launch {
-
+                /**
+                 * Fetching 15 items for a network call
+                 */
                 Pager(
                     config = PagingConfig(pageSize = 15, enablePlaceholders = false)
                 ) {
@@ -48,7 +50,6 @@ class HomeViewModel(
         } catch (e: Exception) {
             e.printStackTrace()
             obsToastMessage.postValue(e.message)
-            _repos.postValue(repoGitHub.getRepositories())
         }
     }
 

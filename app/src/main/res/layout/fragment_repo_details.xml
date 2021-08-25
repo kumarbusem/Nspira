@@ -141,6 +141,86 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:text="RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM" />
 
+            <ImageView
+                android:layout_width="@dimen/dp20"
+                android:layout_marginTop="14dp"
+                android:id="@+id/ivWatch"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/ic_baseline_remove_red_eye_24"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                android:layout_height="@dimen/dp20"/>
+            <TextView
+                android:id="@+id/tvWatchCount"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="@dimen/dp5"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{String.valueOf(mViewModel.selectedRepo.watchersCount)}"
+                android:textColor="@color/colorGrey700"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivWatch"
+                app:layout_constraintStart_toEndOf="@id/ivWatch"
+                app:layout_constraintTop_toTopOf="@id/ivWatch"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="12133" />
+
+
+            <ImageView
+                android:layout_width="@dimen/dp20"
+                android:layout_marginTop="14dp"
+                android:id="@+id/ivFork"
+                app:layout_constraintEnd_toStartOf="@id/tvForkCount"
+                android:src="@drawable/ic_baseline_bolt_24"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                android:layout_height="@dimen/dp20"/>
+            <TextView
+                android:id="@+id/tvForkCount"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="@dimen/dp5"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{String.valueOf(mViewModel.selectedRepo.forksCount)}"
+                android:textColor="@color/colorGrey700"
+                android:textSize="12dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivFork"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivFork"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="12133"
+                android:layout_marginRight="20dp" />
+
+            <ImageView
+                android:layout_width="@dimen/dp20"
+                android:layout_marginTop="14dp"
+                android:id="@+id/ivStar"
+                app:layout_constraintStart_toEndOf="@id/tvWatchCount"
+                app:layout_constraintEnd_toStartOf="@id/tvStarCount"
+                android:src="@drawable/ic_baseline_star_24"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                android:layout_height="@dimen/dp20"/>
+            <TextView
+                android:id="@+id/tvStarCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="@dimen/dp5"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{String.valueOf(mViewModel.selectedRepo.starsCount)}"
+                android:textColor="@color/colorGrey700"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivStar"
+                app:layout_constraintEnd_toStartOf="@id/ivFork"
+                app:layout_constraintStart_toEndOf="@id/ivStar"
+                app:layout_constraintTop_toTopOf="@id/ivStar"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="12133" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -150,7 +230,7 @@
                 android:id="@+id/tvLinkTitle"
                 android:textColor="@color/blue"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                app:layout_constraintTop_toBottomOf="@id/ivWatch"
                 android:layout_height="wrap_content"/>
 
 
@@ -169,7 +249,7 @@
                 tools:text="https://github.com/ReactiveX/RxJava" />
 
             <ImageView
-                android:layout_width="40dp"
+                android:layout_width="44dp"
                 android:id="@+id/btnLink"
                 android:foreground="?selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,7 +257,7 @@
                 android:src="@drawable/ic_baseline_language_24"
                 android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvLink"
-                android:layout_height="40dp"
+                android:layout_height="44dp"
                 app:tint="@color/green_400" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

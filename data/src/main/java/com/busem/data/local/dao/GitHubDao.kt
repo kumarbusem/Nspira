@@ -17,14 +17,14 @@ interface GitHubDao {
     @Query("SELECT * FROM repository WHERE id = :id")
     fun getRepo(id: Int): Repository?
 
-//    @Query("SELECT * FROM repository ORDER BY watchers_count DESC")
-//    fun getRepos(): List<Repository>
+    @Query("SELECT * FROM repository ORDER BY watchers_count DESC")
+    fun getRepos(): List<Repository>
 
     @Query("DELETE FROM repository ")
     fun clearRepos()
 
-    @Query("SELECT * FROM repository ORDER BY watchers_count COLLATE NOCASE ASC")
-    fun getRepos(): PagingSource<Int, Repository>
+//    @Query("SELECT * FROM repository ORDER BY watchers_count COLLATE NOCASE ASC")
+//    fun getRepos(): PagingSource<Int, Repository>
 
 //    @Query("SELECT * FROM repository ORDER BY watchers_count DESC")
 //     fun getRepos(): DataSource.Factory<Int, Repository>

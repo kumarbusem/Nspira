@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.busem.data.common.EMPTY_STRING
+import com.google.gson.annotations.SerializedName
 import kotlin.String
 
 @Entity(tableName = Repository.REPOSITORY)
@@ -19,6 +20,8 @@ data class Repository(
     @ColumnInfo(name = HAS_ISSUES) val hasIssues: Boolean?,
     @ColumnInfo(name = HAS_WIKI) val hasWiki: Boolean?,
     @ColumnInfo(name = WATCHERS_COUNT) val watchersCount: Int,
+    @ColumnInfo(name = STAR_COUNT) val starsCount: Int?,
+    @ColumnInfo(name = FORK_COUNT) val forksCount: Int?,
     @ColumnInfo(name = HTML_URL) val htmlUrl: String,
     @ColumnInfo(name = COMMITS_URL) val commitsUrl: String,
     @ColumnInfo(name = CONTRIBUTORS_URL) val contributorsUrl: String
@@ -39,6 +42,8 @@ data class Repository(
         const val HAS_PROJECTS = "has_projects"
         const val HAS_DOWNLOADS = "has_downloads"
         const val HAS_WIKI = "has_wiki"
+        const val STAR_COUNT = "stargazers_count"
+        const val FORK_COUNT = "forks_count"
 
         const val REPOSITORY = "repository"
 
@@ -58,6 +63,8 @@ data class Repository(
                 hasWiki = repo.hasWiki ?: false,
                 commitsUrl = repo.commitsUrl ?: EMPTY_STRING,
                 contributorsUrl = repo.contributorsUrl ?: EMPTY_STRING,
+                starsCount = repo.starsCount,
+                forksCount = repo.forksCount
             )
         }
 

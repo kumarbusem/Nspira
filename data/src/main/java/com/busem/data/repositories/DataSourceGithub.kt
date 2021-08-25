@@ -11,6 +11,4 @@ interface DataSourceGithub {
 
     suspend fun fetchContributors(url: String): List<Contributor>?
 
-    fun getRepositories(): List<Repository>
-
 }

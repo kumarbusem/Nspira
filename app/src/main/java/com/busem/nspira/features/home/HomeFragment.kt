@@ -76,9 +76,7 @@ class HomeFragment : BaseAbstractFragment<HomeViewModel, FragmentHomeBinding>(
         viewModel.obsPagingData.observe(viewLifecycleOwner, {
             lifecycleScope.launch { repositoriesAdapter.submitData(it) }
         })
-//        repos.observe(viewLifecycleOwner) { repoList ->
-//            lifecycleScope.launch {repositoriesAdapter.submitData(repoList)}
-//        }
+
     }
 
     private fun selectedRepo(repo: Repository) {

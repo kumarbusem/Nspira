@@ -2,21 +2,17 @@ package com.busem.nspira.features.repoDetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.busem.data.common.DataException
-import com.busem.data.common.DataState
-import com.busem.data.local.sharedPrefs.SharedPreferencesDataSource
 import com.busem.data.models.Contributor
 import com.busem.data.models.Repository
-import com.busem.data.repositories.*
+import com.busem.data.repositories.DataSourceGithub
+import com.busem.data.repositories.RepoGithub
 import com.busem.nspira.common.BaseViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class RepoDetailsViewModel(
     private val githubRepo: DataSourceGithub = RepoGithub()
-)  : BaseViewModel() {
+) : BaseViewModel() {
 
     val selectedRepo: MutableLiveData<Repository> = MutableLiveData()
 
@@ -29,16 +25,22 @@ class RepoDetailsViewModel(
     }
 
     private fun getContributors() {
-        if(!repoPrefs.getRepo()?.contributorsUrl.isNullOrEmpty()){
+        if (!repoPrefs.getRepo()?.contributorsUrl.isNullOrEmpty()) {
 
             ioScope.launch {
-                withContext(ioScope.coroutineContext) {
-                    githubRepo.fetchContributors(repoPrefs.getRepo()?.contributorsUrl!!)
-                }?.let { repos ->
-                    _contributors.postValue(repos)
-                    return@let
-                } ?: run {
-                    return@run
+                try {
+
+                    _contributors.postValue(
+                        githubRepo.fetchContributors(repoPrefs.getRepo()?.contributorsUrl!!)
+                    )
+
+                } catch (e: Exception) {
+                    /**
+                     * Here we will handle multiple exception types
+                     * Unauthorized/Client/Server/Socket Timeout
+                     */
+                    e.printStackTrace()
+                    obsToastMessage.postValue(e.message)
                 }
             }
 
