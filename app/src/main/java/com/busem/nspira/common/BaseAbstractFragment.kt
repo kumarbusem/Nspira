@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
+import com.busem.nspira.BR
 
 
-abstract class BaseAbstractFragment<V : BaseViewModel, B : ViewBinding>(
+abstract class BaseAbstractFragment<V : BaseViewModel, B : ViewDataBinding>(
     private val inflate: Inflate<B>
 ) : BaseFragment() {
 
@@ -28,6 +30,10 @@ abstract class BaseAbstractFragment<V : BaseViewModel, B : ViewBinding>(
     ): View {
         nullableBinding = inflate.invoke(layoutInflater)
         setupViews().invoke(binding)
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            setVariable(BR.mViewModel, viewModel)
+        }
         return binding.root
     }
 
